@@ -1,4 +1,4 @@
-from models import Wuser, WuserPhoto, WuserPreference, WuserRelations,
+from models import Wuser
 from rest_framework import serializers
 
 

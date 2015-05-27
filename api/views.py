@@ -15,7 +15,7 @@ def user_list(request):
     """
     if request.method == 'GET':
         users = Wuser.objects.all()
-        serializer = WuserSerializer(tasks, many=True)
+        serializer = WuserSerializer(users, many=True)
         return Response(serializer.data)
 
     elif request.method == 'POST':
@@ -39,7 +39,7 @@ def user_detail(request, pk):
         return Response(status=status.HTTP_404_NOT_FOUND)
 
     if request.method == 'GET':
-        serializer = WuserSerializer(task)
+        serializer = WuserSerializer(user)
         return Response(serializer.data)
 
     elif request.method == 'PUT':
@@ -52,5 +52,5 @@ def user_detail(request, pk):
                 serilizer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     elif request.method == 'DELETE':
-        task.delete()
+        user.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
