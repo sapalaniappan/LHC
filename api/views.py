@@ -4,8 +4,8 @@ from rest_framework import status
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 
-from api.models import Wuser
-from api.serializers import WuserSerializer
+from api.models import Wuser,WuserPreference,WuserPhoto,WuserRelations
+from api.serializers import WuserSerializer,WuserPreferenceSerializer,WuserPhotoSerializer,WuserRelationsSerializer
 
 
 @api_view(['GET', 'POST'])
@@ -54,3 +54,118 @@ def user_detail(request, pk):
     elif request.method == 'DELETE':
         user.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+
+#Wuser Preference
+@api_view(['GET', 'PUT', 'POST', 'DELETE'])
+def user_preferences(request, wuser__id):
+    """
+    Get, udpate, or delete a specific user's Preference
+    """
+    try:
+        user_pref = WuserPreference.objects.get(wuser__id=wuser__id)
+    except WuserPreference.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+
+    if request.method == 'GET':
+        serializer = WuserPreferenceSerializer(user_pref)
+        return Response(serializer.data)
+
+    elif request.method == 'PUT':
+        serializer = WuserPreferenceSerializer(user_pref, data=request.DATA)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        else:
+            return Response(
+                serilizer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    elif request.method == 'DELETE':
+        user_pref.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
+#WuserPhoto
+@api_view(['GET', 'PUT','POST', 'DELETE'])
+def user_photos_by_id(request, pk):
+    """
+    Get, udpate, or delete a specific user's Photos
+    """
+    try:
+        user_photo = WuserPhoto.objects.get(pk=pk)
+    except WuserPhoto.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+
+    if request.method == 'GET':
+        serializer = WuserPhotoSerializer(user_photo)
+        return Response(serializer.data)
+
+    elif request.method == 'PUT':
+        serializer = WuserPhotoSerializer(user_photo, data=request.DATA)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        else:
+            return Response(
+                serilizer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    elif request.method == 'DELETE':
+        user_photo.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
+#WuserPhotos
+@api_view(['GET', 'PUT','POST', 'DELETE'])
+def user_photos_by_user(request, wuser__id):
+    """
+    Get, udpate, or delete a specific user's Photos
+    """
+    try:
+        user_photos = WuserPhoto.objects.get(wuser__id=wuser__id)
+    except WuserPhoto.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+
+    if request.method == 'GET':
+        serializer = WuserPhotoSerializer(user_photos)
+        return Response(serializer.data)
+
+    elif request.method == 'PUT':
+        serializer = WuserPhotoSerializer(user_photos, data=request.DATA)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        else:
+            return Response(
+                serilizer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    # elif request.method == 'DELETE':
+    #     user_photos.delete()
+    #     return Response(status=status.HTTP_204_NO_CONTENT)
+
+#WuserRelations
+@api_view(['GET', 'PUT', 'DELETE'])
+def user_relations(request, wuser__id):
+    """
+    Get, udpate, or delete a specific  user_relations
+    """
+    try:
+        user_relations = WuserRelations.objects.get(wuser__id=wuser__id)
+    except WuserRelations.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+
+    if request.method == 'GET':
+        serializer = WuserRelationsSerializer(user_relations)
+        return Response(serializer.data)
+
+    elif request.method == 'PUT':
+        serializer = WuserRelationsSerializer(user, data=request.DATA)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        else:
+            return Response(
+                serilizer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    elif request.method == 'DELETE':
+        user.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
+
+
