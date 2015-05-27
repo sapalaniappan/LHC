@@ -62,7 +62,7 @@ def user_preferences(request, id):
     Get, udpate, or delete a specific user's Preference
     """
     try:
-        user_pref = WuserPreference.objects.get(wuser__id=id)
+        user_pref = WuserPreference.objects.get(wuser_id=id)
     except WuserPreference.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
 
@@ -118,7 +118,7 @@ def user_photos_by_user(request, id):
     Get, udpate, or delete a specific user's Photos
     """
     try:
-        user_photos = WuserPhoto.objects.get(wuser__id=id,many=True)
+        user_photos = WuserPhoto.objects.get(wuser_id=id,many=True)
     except WuserPhoto.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
 
@@ -146,7 +146,7 @@ def user_relations(request, id):
     Get, udpate, or delete a specific  user_relations
     """
     try:
-        user_relations = WuserRelations.objects.get(wuser__id=id)
+        user_relations = WuserRelations.objects.get(wuser_id=id)
     except WuserRelations.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
 
