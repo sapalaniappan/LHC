@@ -118,12 +118,12 @@ def user_photos_by_user(request, id):
     Get, udpate, or delete a specific user's Photos
     """
     try:
-        user_photos = WuserPhoto.objects.get(wuser_id=id,many=True)
+        user_photos = WuserPhoto.objects.get(wuser_id=id)
     except WuserPhoto.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
 
     if request.method == 'GET':
-        serializer = WuserPhotoSerializer(user_photos)
+        serializer = WuserPhotoSerializer(user_photos,many=True)
         return Response(serializer.data)
 
     elif request.method == 'PUT':
