@@ -83,33 +83,33 @@ def user_preferences(request, id):
         user_pref.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
 
-#WuserPhoto
-@api_view(['GET', 'PUT','POST', 'DELETE'])
-def user_photos_by_id(request, pk):
-    """
-    Get, udpate, or delete a specific user's Photos
-    """
-    try:
-        user_photo = WuserPhoto.objects.get(pk=pk)
-    except WuserPhoto.DoesNotExist:
-        return Response(status=status.HTTP_404_NOT_FOUND)
+# #WuserPhoto
+# @api_view(['GET', 'PUT','POST', 'DELETE'])
+# def user_photos_by_id(request, pk):
+#     """
+#     Get, udpate, or delete a specific user's Photos
+#     """
+#     try:
+#         user_photo = WuserPhoto.objects.get(pk=pk)
+#     except WuserPhoto.DoesNotExist:
+#         return Response(status=status.HTTP_404_NOT_FOUND)
 
-    if request.method == 'GET':
-        serializer = WuserPhotoSerializer(user_photo)
-        return Response(serializer.data)
+#     if request.method == 'GET':
+#         serializer = WuserPhotoSerializer(user_photo)
+#         return Response(serializer.data)
 
-    elif request.method == 'PUT':
-        serializer = WuserPhotoSerializer(user_photo, data=request.DATA)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data)
-        else:
-            return Response(
-                serilizer.errors, status=status.HTTP_400_BAD_REQUEST)
+#     elif request.method == 'PUT':
+#         serializer = WuserPhotoSerializer(user_photo, data=request.DATA)
+#         if serializer.is_valid():
+#             serializer.save()
+#             return Response(serializer.data)
+#         else:
+#             return Response(
+#                 serilizer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-    elif request.method == 'DELETE':
-        user_photo.delete()
-        return Response(status=status.HTTP_204_NO_CONTENT)
+#     elif request.method == 'DELETE':
+#         user_photo.delete()
+#         return Response(status=status.HTTP_204_NO_CONTENT)
 
 #WuserPhotos
 @api_view(['GET', 'PUT','POST', 'DELETE'])
