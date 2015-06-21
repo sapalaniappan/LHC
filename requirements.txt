@@ -1,6 +1,6 @@
 altgraph==0.10.1
 bdist-mpkg==0.4.4
-bonjour-py==0.3
+#bonjour-py==0.3
 cloudinary==1.1.1
 Django==1.5.7
 django-filter==0.10.0
