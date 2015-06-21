@@ -5,6 +5,7 @@ from django.db import models
 class Wuser(models.Model):
     id = models.BigIntegerField(primary_key=True)
     email = models.TextField(blank=True, null=True)
+    password = models.TextField(blank=True, null=True)
     name = models.TextField(blank=True, null=True)
     display_name = models.TextField(blank=True, null=True)
     current_country = models.TextField(blank=True, null=True)
@@ -26,13 +27,13 @@ class Wuser(models.Model):
 class WuserPhoto(models.Model):
     id = models.BigIntegerField(primary_key=True)
     wuser_id = models.DecimalField(max_digits=65535, decimal_places=65535, blank=True, null=True)
-    photo_type = models.CharField(max_length=10, blank=True, null=True)
-    photo = models.BinaryField(blank=True, null=True)
+    photo_name = models.CharField(max_length=10, blank=True, null=True)
     time_created = models.DateTimeField(blank=True, null=True)
     is_deleted = models.NullBooleanField()
     is_profile_photo = models.NullBooleanField()
     time_updated = models.DateTimeField(blank=True, null=True)
     is_enabled = models.NullBooleanField()
+    mask_id = models.DecimalField(max_digits=65535, decimal_places=65535, blank=True, null=True)
 
     class Meta:
         managed = False
@@ -50,14 +51,73 @@ class WuserPreference(models.Model):
         db_table = 'wuser_preference'
 
 
+class WuserProperties(models.Model):
+    id = models.BigIntegerField(primary_key=True)
+    wuser_id = models.DecimalField(max_digits=65535, decimal_places=65535, blank=True, null=True)
+    prop_type = models.CharField(max_length=10, blank=True, null=True)
+    prop_value = models.TextField(blank=True, null=True)
+
+    class Meta:
+        managed = False
+        db_table = 'wuser_properties'
+
 class WuserRelations(models.Model):
     id = models.BigIntegerField(primary_key=True)
     wuser_id = models.DecimalField(max_digits=65535, decimal_places=65535, blank=True, null=True)
-    like_from_id = models.DecimalField(max_digits=65535, decimal_places=65535, blank=True, null=True)
-    like_to_id = models.DecimalField(max_digits=65535, decimal_places=65535, blank=True, null=True)
-    passed_id = models.DecimalField(max_digits=65535, decimal_places=65535, blank=True, null=True)
+    counterparty = models.DecimalField(max_digits=65535, decimal_places=65535, blank=True, null=True)
+    relation = models.DecimalField(max_digits=65535, decimal_places=65535, blank=True, null=True)
+    is_active = models.NullBooleanField()
     time_created = models.DateTimeField(blank=True, null=True)
 
     class Meta:
         managed = False
         db_table = 'wuser_relations'
+
+class Chats(models.Model):
+    id = models.BigIntegerField(primary_key=True)
+    name = models.CharField(max_length=10, blank=True, null=True)
+    time_created = models.DateTimeField(blank=True, null=True)
+
+    class Meta:
+        managed = False
+        db_table = 'chats'
+
+
+class WuserChat(models.Model):
+    id = models.BigIntegerField(primary_key=True)
+    wuser_id = models.DecimalField(max_digits=65535, decimal_places=65535, blank=True, null=True)
+    counterparty = models.DecimalField(max_digits=65535, decimal_places=65535, blank=True, null=True)
+    chat_id = models.DecimalField(max_digits=65535, decimal_places=65535, blank=True, null=True)
+    time_created = models.DateTimeField(blank=True, null=True)
+    last_updated = models.DateTimeField(blank=True, null=True)
+
+    class Meta:
+        managed = False
+        db_table = 'wuser_chats'
+
+class Events(models.Model):
+    id = models.BigIntegerField(primary_key=True)
+    name = models.CharField(max_length=10, blank=True, null=True)
+    description = models.CharField(max_length=255, blank=True, null=True)
+    creator_id = models.DecimalField(max_digits=65535, decimal_places=65535, blank=True, null=True)
+    venue = models.CharField(max_length=10, blank=True, null=True)
+    event_date = models.DateTimeField(blank=True, null=True)
+    time_created = models.DateTimeField(blank=True, null=True)
+
+    class Meta:
+        managed = False
+        db_table = 'events'
+
+
+class WuserChat(models.Model):
+    id = models.BigIntegerField(primary_key=True)
+    wuser_id = models.DecimalField(max_digits=65535, decimal_places=65535, blank=True, null=True)
+    counterparty = models.DecimalField(max_digits=65535, decimal_places=65535, blank=True, null=True)
+    chat_id = models.DecimalField(max_digits=65535, decimal_places=65535, blank=True, null=True)
+    time_created = models.DateTimeField(blank=True, null=True)
+    last_updated = models.DateTimeField(blank=True, null=True)
+    
+    class Meta:
+        managed = False
+        db_table = 'wuser_events'
+
