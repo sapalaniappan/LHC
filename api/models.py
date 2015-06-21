@@ -83,7 +83,7 @@ class Chats(models.Model):
         db_table = 'chats'
 
 
-class WuserChat(models.Model):
+class WuserChats(models.Model):
     id = models.BigIntegerField(primary_key=True)
     wuser_id = models.DecimalField(max_digits=65535, decimal_places=65535, blank=True, null=True)
     counterparty = models.DecimalField(max_digits=65535, decimal_places=65535, blank=True, null=True)
@@ -103,19 +103,18 @@ class Events(models.Model):
     venue = models.CharField(max_length=10, blank=True, null=True)
     event_date = models.DateTimeField(blank=True, null=True)
     time_created = models.DateTimeField(blank=True, null=True)
+    last_updated = models.DateTimeField(blank=True, null=True)
 
     class Meta:
         managed = False
         db_table = 'events'
 
 
-class WuserChat(models.Model):
+class WuserEvents(models.Model):
     id = models.BigIntegerField(primary_key=True)
     wuser_id = models.DecimalField(max_digits=65535, decimal_places=65535, blank=True, null=True)
-    counterparty = models.DecimalField(max_digits=65535, decimal_places=65535, blank=True, null=True)
-    chat_id = models.DecimalField(max_digits=65535, decimal_places=65535, blank=True, null=True)
+    event_id = models.DecimalField(max_digits=65535, decimal_places=65535, blank=True, null=True)
     time_created = models.DateTimeField(blank=True, null=True)
-    last_updated = models.DateTimeField(blank=True, null=True)
     
     class Meta:
         managed = False
