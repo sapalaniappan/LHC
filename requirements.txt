@@ -1,4 +1,4 @@
-altgraph==0.10.1
+eltgraph==0.10.1
 bdist-mpkg==0.4.4
 #bonjour-py==0.3
 cloudinary==1.1.1
@@ -14,7 +14,7 @@ MySQL-python==1.2.4
 psycopg2==2.6
 setuptools==0.7.3
 py2app==0.7.1
-pyobjc-core==2.3.2a0
+pyobjc-core==3.0.4
 pyobjc-framework-AddressBook==2.3.2a0
 pyobjc-framework-AppleScriptKit==2.3.2a0
 pyobjc-framework-AppleScriptObjC==2.3.2a0
