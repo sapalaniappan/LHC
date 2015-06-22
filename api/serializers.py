@@ -1,36 +1,6 @@
 from models import Wuser,WuserPreference,WuserPhoto,WuserRelations,WuserProperties,Chats,WuserChats,Events,WuserEvents
 from rest_framework import serializers
 
-def update_id(func):
-    '''A decorator for pulling a data object's ID value out of a
-       user-defined sequence.  This gets around a limitation in 
-       django whereby we cannot supply our own sequence names.'''
-    
-    def decorated_function(*args):
-        # Grab a reference to the data object we want to update.
-        for name, value in args.items():
-            print '{key} = {value}'.format(name, value)
-
-        data_object = args[0]
-        
-        # Only update the ID if there isn't one yet.
-        if data_object.id is None:
-            # Construct the new sequence name based on the table's meta data.
-            sequence_name = '%s_seq' % data_object._meta.db_table
-        
-            # Query the database for the next sequence value.
-            from django.db import connection
-            cursor = connection.cursor()
-            cursor.execute("SELECT nextval(%s)", [sequence_name])
-            row = cursor.fetchone()
-        
-            # Update the data object's ID with the returned sequence value.
-            data_object.id = row[0]
-        
-        # Execute the function we're decorating.
-        return func(*args)
-    
-    return decorated_function
 
 class WuserSerializer(serializers.ModelSerializer):
 
