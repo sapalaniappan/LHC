@@ -3,9 +3,10 @@ from rest_framework import serializers
 
 
 class WuserSerializer(serializers.HyperlinkedModelSerializer):
+
     class Meta:
         model = Wuser
-        fields = ('id','email','password','name','display_name',
+        fields = ('email','password','name','display_name',
             'current_country','current_city','gender',
             'date_of_birth','college_country',
             'college_name','sign_up_type',
@@ -26,7 +27,8 @@ class WuserPropertiesSerializer(serializers.HyperlinkedModelSerializer):
 class WuserPhotoSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = WuserPhoto
-        fields = ('id','wuser_id','photo_type','photo','time_created','is_deleted','is_profile_photo','time_updated','is_enabled')
+        fields = ('id','wuser_id','photo_name','time_created','is_deleted','is_profile_photo',
+            'time_updated','is_enabled','mask_id')
 
 class WuserRelationsSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
