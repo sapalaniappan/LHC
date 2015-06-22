@@ -46,7 +46,7 @@ class WuserSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         from django.db import connection
         cursor = connection.cursor()
-        cursor.execute("SELECT nextval(wuser_seq)")
+        cursor.execute("SELECT nextval('wuser_id_seq')")
         row = cursor.fetchone()
         user = Wuser(
             id=row[0],
