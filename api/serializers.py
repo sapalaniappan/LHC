@@ -52,7 +52,6 @@ class WuserSerializer(serializers.ModelSerializer):
             id=row[0],
             email=validated_data['email'],
             name=validated_data['name'],
-            current_country=validated_data['current_country'],
             current_city=validated_data['current_city']
             
         )
