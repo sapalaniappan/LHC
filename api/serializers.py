@@ -13,20 +13,20 @@ class WuserSerializer(serializers.ModelSerializer):
             'is_reported_abuse','last_login',
             'time_created')
         
-    def create(self, validated_data):
-        from django.db import connection
-        cursor = connection.cursor()
-        cursor.execute("SELECT nextval('wuser_id_seq')")
-        row = cursor.fetchone()
-        user = Wuser(
-            id=row[0],
-            email=validated_data['email'],
-            name=validated_data['name'],
-            current_city=validated_data['current_city']
+    # def create(self, validated_data):
+    #     from django.db import connection
+    #     cursor = connection.cursor()
+    #     cursor.execute("SELECT nextval('wuser_id_seq')")
+    #     row = cursor.fetchone()
+    #     user = Wuser(
+    #         id=row[0],
+    #         email=validated_data['email'],
+    #         name=validated_data['name'],
+    #         current_city=validated_data['current_city']
             
-        )
-        user.save()
-        return user
+    #     )
+    #     user.save()
+    #     return user
 
 
 class WuserPreferenceSerializer(serializers.HyperlinkedModelSerializer):
