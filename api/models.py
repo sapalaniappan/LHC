@@ -4,7 +4,7 @@ from django.db import models
 # Create your models here.
 
 class Wuser(models.Model):
-    id = models.BigAutoField(primary_key=True)
+    id = models.BigIntegerField(primary_key=True)
     email = models.TextField(blank=True, null=True)
     password = models.TextField(blank=True, null=True)
     name = models.TextField(blank=True, null=True)
