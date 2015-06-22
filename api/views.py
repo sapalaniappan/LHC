@@ -26,7 +26,7 @@ def user_list(request):
         row = cursor.fetchone()
         data['id']=row[0]
         serializer = WuserSerializer(data=data)
-        if serializer.is_valid()
+        if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         else:
