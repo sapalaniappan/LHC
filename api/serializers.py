@@ -44,11 +44,11 @@ class WuserSerializer(serializers.ModelSerializer):
             'time_created')
         
     def create(self, validated_data):
-        user = Wuser(
-            from django.db import connection
+        from django.db import connection
             cursor = connection.cursor()
             cursor.execute("SELECT nextval(wuser_seq)")
             row = cursor.fetchone()
+        user = Wuser(
             id=row[0]
             email=validated_data['email'],
             name=validated_data['name'],
