@@ -6,7 +6,7 @@ class WuserSerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:
         model = Wuser
-        fields = ('email','password','name','display_name',
+        fields = ('id','email','password','name','display_name',
             'current_country','current_city','gender',
             'date_of_birth','college_country',
             'college_name','sign_up_type',
