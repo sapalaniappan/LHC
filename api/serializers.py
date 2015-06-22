@@ -49,7 +49,7 @@ class WuserSerializer(serializers.ModelSerializer):
         cursor.execute("SELECT nextval(wuser_seq)")
         row = cursor.fetchone()
         user = Wuser(
-            id=row[0]
+            id=row[0],
             email=validated_data['email'],
             name=validated_data['name'],
             current_country=validated_data['current_country'],
