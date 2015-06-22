@@ -25,8 +25,8 @@ def user_list(request):
         cursor.execute("SELECT nextval('wuser_id_seq')")
         row = cursor.fetchone()
         data['id']=row[0]
-        serializer = WuserSerializer(data)
-        if serializer.is_valid():
+        serializer = WuserSerializer(data=data)
+        if serializer.is_valid()
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         else:
