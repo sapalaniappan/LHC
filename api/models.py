@@ -11,7 +11,7 @@ class Wuser(models.Model):
     current_country = models.TextField(blank=True, null=True)
     current_city = models.TextField(blank=True, null=True)
     gender = models.CharField(max_length=1, blank=True, null=True)
-    date_of_birth = models.CharField(max_length=10, blank=True, null=True)
+    date_of_birth = models.CharField(max_length=20, blank=True, null=True)
     college_country = models.TextField(blank=True, null=True)
     college_name = models.TextField(blank=True, null=True)
     sign_up_type = models.CharField(max_length=1, blank=True, null=True)
