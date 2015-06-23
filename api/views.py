@@ -27,7 +27,7 @@ def user_list(request):
         data['id']=row[0]
         serializer = WuserSerializer(data=data)
         if serializer.is_valid():
-            serializer.save()
+            serializer.save() 
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         else:
             return Response(
@@ -86,6 +86,21 @@ def user_preferences(request, id):
             return Response(
                 serilizer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+    elif request.method == 'POST':
+        data=request.DATA
+        from django.db import connection
+        cursor = connection.cursor()
+        cursor.execute("SELECT nextval('wuser_preference_id_seq')")
+        row = cursor.fetchone()
+        data['id']=row[0]
+        serializer = WuserPreferenceSerializer(data=data)
+        if serializer.is_valid():
+            serializer.save() 
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        else:
+            return Response(
+                serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
     elif request.method == 'DELETE':
         user_pref.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
@@ -120,10 +135,25 @@ def user_preferences(request, id):
 
 #WuserPhotos
 @api_view(['GET', 'PUT','POST', 'DELETE'])
-def user_photos_by_user(request, id):
+def user_photos(request, id):
     """
     Get, udpate, or delete a specific user's Photos
     """
+    if request.method == 'POST':
+        data=request.DATA
+        from django.db import connection
+        cursor = connection.cursor()
+        cursor.execute("SELECT nextval('wuser_photo_id_seq')")
+        row = cursor.fetchone()
+        data['id']=row[0]
+        serializer = WuserPhotoSerializer(data=data)
+        if serializer.is_valid():
+            serializer.save() 
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        else:
+            return Response(
+                serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
     try:
         user_photos = WuserPhoto.objects.get(wuser_id=id)
     except WuserPhoto.DoesNotExist:
@@ -147,7 +177,7 @@ def user_photos_by_user(request, id):
     #     return Response(status=status.HTTP_204_NO_CONTENT)
 
 #WuserRelations
-@api_view(['GET', 'PUT', 'DELETE'])
+@api_view(['GET', 'PUT', 'POST' , 'DELETE'])
 def user_relations(request, id):
     """
     Get, udpate, or delete a specific  user_relations
@@ -169,6 +199,21 @@ def user_relations(request, id):
         else:
             return Response(
                 serilizer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    elif request.method == 'POST':
+        data=request.DATA
+        from django.db import connection
+        cursor = connection.cursor()
+        cursor.execute("SELECT nextval('wuser_relations_id_seq')")
+        row = cursor.fetchone()
+        data['id']=row[0]
+        serializer = WuserRelationsSerializer(data=data)
+        if serializer.is_valid():
+            serializer.save() 
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        else:
+            return Response(
+                serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     elif request.method == 'DELETE':
         user.delete()
