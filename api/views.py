@@ -62,6 +62,22 @@ def user_detail(request, pk):
         user.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
 
+@api_view(['GET'])
+def user_detail_by_email(request, email):
+    """
+    Get, udpate, or delete a specific user
+    """
+    try:
+        user = Wuser.objects.get(email=email)
+    except Wuser.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+
+    if request.method == 'GET':
+        serializer = WuserSerializer(user)
+        return Response(serializer.data)
+
+
+
 #Wuser Preference
 @api_view(['GET', 'PUT', 'POST', 'DELETE'])
 def user_preferences(request, id):

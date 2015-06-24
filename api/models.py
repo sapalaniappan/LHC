@@ -7,6 +7,7 @@ class Wuser(models.Model):
     id = models.BigIntegerField(primary_key=True)
     email = models.TextField(blank=True, null=True)
     password = models.TextField(blank=True, null=True)
+    age = models.DecimalField(max_digits=65535, decimal_places=0, blank=True, null=True)
     name = models.TextField(blank=True, null=True)
     display_name = models.TextField(blank=True, null=True)
     current_country = models.TextField(blank=True, null=True)

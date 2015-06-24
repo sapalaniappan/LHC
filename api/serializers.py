@@ -11,7 +11,7 @@ class WuserSerializer(serializers.ModelSerializer):
             'date_of_birth','college_country',
             'college_name','sign_up_type',
             'is_reported_abuse','last_login',
-            'time_created')
+            'time_created','age')
         
     # def create(self, validated_data):
     #     from django.db import connection
