@@ -7,5 +7,6 @@ urlpatterns = patterns(
     url(r'^users/(?P<pk>[0-9]+)$', 'user_detail', name='user_detail'),
     url(r'^users/preferences/(?P<id>[0-9]+)$', 'user_preferences', name='user_preferences'),
     url(r'^users/photos/user/(?P<id>[0-9]+)$', 'user_photos', name='user_photos'),
+    url(r'^users/photos/user/properties/(?P<userid>[0-9]+)$', 'user_properties', name='user_properties'),
     url(r'^users/relations/(?P<id>[0-9]+)$', 'user_relations', name='user_relations'),
 )
