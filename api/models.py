@@ -36,7 +36,7 @@ class WuserPhoto(models.Model):
     is_profile_photo = models.NullBooleanField()
     time_updated = models.DateTimeField(blank=True, null=True)
     is_enabled = models.NullBooleanField()
-    mask_id = models.DecimalField(max_digits=65535, decimal_places=65535, blank=True, null=True)
+    mask_id = models.DecimalField(max_digits=65535, decimal_places=0, blank=True, null=True)
 
     class Meta:
         managed = False
