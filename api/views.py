@@ -230,7 +230,7 @@ def user_properties(request, userid):
             return Response(
                 serilizer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-@user Chats
+#user Chats
 @api_view(['GET', 'PUT','POST', 'DELETE'])
 def user_chats(request, userid):
     """
