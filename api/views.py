@@ -232,7 +232,7 @@ def user_properties(request, userid):
 
 #user Chats
 @api_view(['GET', 'PUT','POST', 'DELETE'])
-def user_chats(request, userid):
+def user_chats(request, id):
     """
     Get, udpate, or delete a specific user's Chat Info
     """
@@ -252,7 +252,7 @@ def user_chats(request, userid):
                 serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     try:
-        user_chats = WuserChats.objects.filter(wuser_id=userid)
+        user_chats = WuserChats.objects.filter(wuser_id=id)
     except WuserChats.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
 
