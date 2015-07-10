@@ -4,8 +4,8 @@ from rest_framework import status
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 
-from api.models import Wuser,WuserPreference,WuserPhoto,WuserRelations,WuserProperties
-from api.serializers import WuserSerializer,WuserPreferenceSerializer,WuserPhotoSerializer,WuserRelationsSerializer,WuserPropertiesSerializer
+from api.models import Wuser,WuserPreference,WuserPhoto,WuserRelations,WuserProperties,WuserChats
+from api.serializers import WuserSerializer,WuserPreferenceSerializer,WuserPhotoSerializer,WuserRelationsSerializer,WuserPropertiesSerializer,WuserChatsSerializer
 
 
 @api_view(['GET', 'POST'])
@@ -230,6 +230,44 @@ def user_properties(request, userid):
             return Response(
                 serilizer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+@user Chats
+@api_view(['GET', 'PUT','POST', 'DELETE'])
+def user_chats(request, userid):
+    """
+    Get, udpate, or delete a specific user's Chat Info
+    """
+    if request.method == 'POST':
+        data=request.DATA
+        from django.db import connection
+        cursor = connection.cursor()
+        cursor.execute("SELECT nextval('wuser_chat_id_seq')")
+        row = cursor.fetchone()
+        data['id']=row[0]
+        serializer = WuserChatsSerializer(data=data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        else:
+            return Response(
+                serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    try:
+        user_chats = WuserChats.objects.filter(wuser_id=userid)
+    except WuserChats.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+
+    if request.method == 'GET':
+        serializer = WuserChatsSerializer(user_chats,many=True)
+        return Response(serializer.data)
+
+    elif request.method == 'PUT':
+        serializer = WuserChatsSerializer(user_chats, data=request.DATA)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        else:
+            return Response(
+                serilizer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 #WuserRelations
 @api_view(['GET', 'PUT', 'POST' , 'DELETE'])
