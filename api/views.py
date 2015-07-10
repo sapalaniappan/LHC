@@ -240,7 +240,7 @@ def user_chats(request, id):
         data=request.DATA
         from django.db import connection
         cursor = connection.cursor()
-        cursor.execute("SELECT nextval('wuser_chat_id_seq')")
+        cursor.execute("SELECT nextval('wuser_chats_id_seq')")
         row = cursor.fetchone()
         data['id']=row[0]
         serializer = WuserChatsSerializer(data=data)
