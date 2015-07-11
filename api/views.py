@@ -252,7 +252,7 @@ def user_chats(request, id):
                 serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     try:
-        user_chats = WuserChats.objects.filter(wuser_id=id)
+        user_chats = WuserChats.objects.filter(wuser_id=id,counterparty=id)
     except WuserChats.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
 
