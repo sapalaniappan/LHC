@@ -4,6 +4,7 @@ from rest_framework import status
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 
+from django.db.models import Q
 from api.models import Wuser,WuserPreference,WuserPhoto,WuserRelations,WuserProperties,WuserChats
 from api.serializers import WuserSerializer,WuserPreferenceSerializer,WuserPhotoSerializer,WuserRelationsSerializer,WuserPropertiesSerializer,WuserChatsSerializer
 
@@ -252,7 +253,7 @@ def user_chats(request, id):
                 serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     try:
-        user_chats = WuserChats.objects.filter(wuser_id=id,counterparty=id)
+        user_chats = WuserChats.objects.filter( Q(wuser_id=id) | Q(conterparty=id))
     except WuserChats.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
 
