@@ -276,6 +276,20 @@ def user_relations(request, id):
     """
     Get, udpate, or delete a specific  user_relations
     """
+    if request.method == 'POST':
+        data=request.DATA
+        from django.db import connection
+        cursor = connection.cursor()
+        cursor.execute("SELECT nextval('wuser_relations_id_seq')")
+        row = cursor.fetchone()
+        data['id']=row[0]
+        serializer = WuserRelationsSerializer(data=data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        else:
+            return Response(
+                serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     try:
         user_relations = WuserRelations.objects.get( Q(wuser_id=id) | Q(counterparty=id))
     except WuserRelations.DoesNotExist:
@@ -293,21 +307,6 @@ def user_relations(request, id):
         else:
             return Response(
                 serilizer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-    elif request.method == 'POST':
-        data=request.DATA
-        from django.db import connection
-        cursor = connection.cursor()
-        cursor.execute("SELECT nextval('wuser_relations_id_seq')")
-        row = cursor.fetchone()
-        data['id']=row[0]
-        serializer = WuserRelationsSerializer(data=data)
-        if serializer.is_valid():
-            serializer.save() 
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        else:
-            return Response(
-                serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     elif request.method == 'DELETE':
         user.delete()
