@@ -9,5 +9,5 @@ urlpatterns = patterns(
     url(r'^users/photos/user/(?P<id>[0-9]+)$', 'user_photos', name='user_photos'),
     url(r'^users/chats/user/(?P<id>[0-9]+)$', 'user_chats', name='user_chats'),
     url(r'^users/properties/user/(?P<userid>[0-9]+)$', 'user_properties', name='user_properties'),
-    url(r'^users/relations/(?P<id>[0-9]+)$', 'user_relations', name='user_relations'),
+    url(r'^users/relations/user/(?P<id>[0-9]+)$', 'user_relations', name='user_relations'),
 )

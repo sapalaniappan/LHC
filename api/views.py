@@ -277,7 +277,7 @@ def user_relations(request, id):
     Get, udpate, or delete a specific  user_relations
     """
     try:
-        user_relations = WuserRelations.objects.get(wuser_id=id)
+        user_relations = WuserRelations.objects.get( Q(wuser_id=id) | Q(counterparty=id))
     except WuserRelations.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
 
