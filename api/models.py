@@ -100,13 +100,16 @@ class WuserChats(models.Model):
 
 class Events(models.Model):
     id = models.BigIntegerField(primary_key=True)
-    name = models.CharField(max_length=10, blank=True, null=True)
+    name = models.CharField(max_length=20, blank=True, null=True)
     description = models.CharField(max_length=255, blank=True, null=True)
     creator_id = models.DecimalField(max_digits=65535, decimal_places=0, blank=True, null=True)
-    venue = models.CharField(max_length=10, blank=True, null=True)
+    venue = models.CharField(max_length=60, blank=True, null=True)
     event_date = models.DateTimeField(blank=True, null=True)
     time_created = models.DateTimeField(blank=True, null=True)
     last_updated = models.DateTimeField(blank=True, null=True)
+    city = models.CharField(max_length=30, blank=True, null=True)
+    country = models.CharField(max_length=30, blank=True, null=True)
+    access_code = models.CharField(max_length=10, blank=True, null=True)
 
     class Meta:
         managed = False

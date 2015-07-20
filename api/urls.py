@@ -10,4 +10,6 @@ urlpatterns = patterns(
     url(r'^users/chats/user/(?P<id>[0-9]+)$', 'user_chats', name='user_chats'),
     url(r'^users/properties/user/(?P<userid>[0-9]+)$', 'user_properties', name='user_properties'),
     url(r'^users/relations/user/(?P<id>[0-9]+)$', 'user_relations', name='user_relations'),
+    url(r'^users/events/user/(?P<id>[0-9]+)$', 'user_events', name='user_events'),
+    url(r'^events/(?P<id>[0-9]+)$', 'events', name='events'),
 )

@@ -5,9 +5,8 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 
 from django.db.models import Q
-from api.models import Wuser,WuserPreference,WuserPhoto,WuserRelations,WuserProperties,WuserChats
-from api.serializers import WuserSerializer,WuserPreferenceSerializer,WuserPhotoSerializer,WuserRelationsSerializer,WuserPropertiesSerializer,WuserChatsSerializer
-
+from api.models import Wuser,WuserPreference,WuserPhoto,WuserRelations,WuserProperties,WuserChats,WuserEvents,Events
+from api.serializers import WuserSerializer,WuserPreferenceSerializer,WuserPhotoSerializer,WuserRelationsSerializer,WuserPropertiesSerializer,WuserChatsSerializer,WuserEventsSerializer,EventsSerializer
 
 @api_view(['GET', 'POST'])
 def user_list(request):
@@ -311,6 +310,92 @@ def user_relations(request, id):
     elif request.method == 'DELETE':
         user.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+
+
+@api_view(['GET', 'PUT', 'POST' , 'DELETE'])
+def user_events(request, id):
+    """
+    Get, udpate, or delete a specific  user_event
+    """
+    if request.method == 'POST':
+        data=request.DATA
+        from django.db import connection
+        cursor = connection.cursor()
+        cursor.execute("SELECT nextval('wuser_events_id_seq')")
+        row = cursor.fetchone()
+        data['id']=row[0]
+        serializer = WuserEventsSerializer(data=data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        else:
+            return Response(
+                serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    try:
+        user_events = WuserEventsSerializer.objects.get(wuser_id=id)
+    except WuserEvents.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+
+    if request.method == 'GET':
+        serializer = WuserEventsSerializer(user_events)
+        return Response(serializer.data)
+
+    elif request.method == 'PUT':
+        serializer = WuserEventsSerializeruser, data=request.DATA)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        else:
+            return Response(
+                serilizer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    elif request.method == 'DELETE':
+        user.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
+
+@api_view(['GET', 'PUT', 'POST' , 'DELETE'])
+def events(request, id):
+    """
+    Get, udpate, or delete a specific  user_event
+    """
+    if request.method == 'POST':
+        data=request.DATA
+        from django.db import connection
+        cursor = connection.cursor()
+        cursor.execute("SELECT nextval('events_id_seq')")
+        row = cursor.fetchone()
+        data['id']=row[0]
+        serializer = EventsSerializer(data=data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        else:
+            return Response(
+                serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    try:
+        events = EventsSerializer.objects.get(wuser_id=id)
+    except Events.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+
+    if request.method == 'GET':
+        serializer = EventsSerializer(user_events)
+        return Response(serializer.data)
+
+    elif request.method == 'PUT':
+        serializer = EventsSerializeruser, data=request.DATA)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        else:
+            return Response(
+                serilizer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    elif request.method == 'DELETE':
+        user.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
+
 
 
 

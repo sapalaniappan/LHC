@@ -63,7 +63,7 @@ class WuserChatsSerializer(serializers.HyperlinkedModelSerializer):
 class EventsSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Events
-        fields = ('id','name','description','creator_id','venue','event_date','time_created')
+        fields = ('id','name','description','creator_id','venue','event_date','time_created','city','country','access_code')
 
 class WuserEventsSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
