@@ -332,7 +332,7 @@ def user_events(request, id):
             return Response(
                 serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     try:
-        user_events = WuserEventsSerializer.objects.get(wuser_id=id)
+        user_events = WuserEvents.objects.get(wuser_id=id)
     except WuserEvents.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
 
