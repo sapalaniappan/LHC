@@ -341,7 +341,7 @@ def user_events(request, id):
         return Response(serializer.data)
 
     elif request.method == 'PUT':
-        serializer = WuserEventsSerializeruser, data=request.DATA)
+        serializer = WuserEventsSerializer(data=request.DATA)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)
@@ -383,7 +383,7 @@ def events(request, id):
         return Response(serializer.data)
 
     elif request.method == 'PUT':
-        serializer = EventsSerializeruser, data=request.DATA)
+        serializer = EventsSerializeruser(data=request.DATA)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)
