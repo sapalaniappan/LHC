@@ -374,7 +374,7 @@ def events(request, id):
             return Response(
                 serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     try:
-        events = EventsSerializer.objects.get(wuser_id=id)
+        events = EventsSerializer.objects.get(id=id)
     except Events.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
 
