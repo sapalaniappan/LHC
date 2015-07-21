@@ -379,7 +379,7 @@ def events(request, id):
         return Response(status=status.HTTP_404_NOT_FOUND)
 
     if request.method == 'GET':
-        serializer = EventsSerializer(user_events)
+        serializer = EventsSerializer(events)
         return Response(serializer.data)
 
     elif request.method == 'PUT':
