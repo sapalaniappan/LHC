@@ -11,17 +11,17 @@ from api.serializers import WuserSerializer,WuserPreferenceSerializer,WuserPhoto
 from rest_framework.generics import ListAPIView
 from itertools import chain
 
-class ResultsList(ListAPIView):
-    def list(self, request, *args, **kwargs):
-        #user = Wuser.objects.all()
-        user = Wuser.objects.get(pk=162)
-        photos = WuserPhotos.objects.filter(wuser_id=162)
-
-        results = list()
-        entries = list(chain(photos)) # combine the two querysets
-        results.append(user)
-        results.append(photos)   
-        return Response(results)
+#class ResultsList(ListAPIView):
+#    def list(self, request, *args, **kwargs):
+#        #user = Wuser.objects.all()
+#        user = Wuser.objects.get(pk=162)
+#        photos = WuserPhotos.objects.filter(wuser_id=162)
+#
+#        results = list()
+#        entries = list(chain(photos)) # combine the two querysets
+#        results.append(user)
+#        results.append(photos)   
+#        return Response(results)
 
 @api_view(['GET', 'POST'])
 def user_list(request):
