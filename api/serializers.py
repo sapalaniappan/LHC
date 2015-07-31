@@ -49,6 +49,7 @@ class WuserDetailSerializer(serializers.ModelSerializer):
     photos = WuserPhotoSerializer(many=True)
     class Meta:
         model = Wuser
+        serializer_class = WuserSerializer
         fields = ('id','email','password','name','display_name',
             'current_country','current_city','gender',
             'date_of_birth','college_country',
