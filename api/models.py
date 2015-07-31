@@ -3,6 +3,20 @@ from django.db import models
 
 # Create your models here.
 
+class WuserPhoto(models.Model):
+    id = models.BigIntegerField(primary_key=True)
+    #wuser_id = models.DecimalField(max_digits=65535, decimal_places=0, blank=True, null=True)
+    wuser_id = models.ForeignKey(Wuser)
+    photo_name = models.CharField(max_length=10, blank=True, null=True)
+    time_created = models.DateTimeField(blank=True, null=True)
+    is_deleted = models.NullBooleanField()
+    is_profile_photo = models.NullBooleanField()
+    time_updated = models.DateTimeField(blank=True, null=True)
+    is_enabled = models.NullBooleanField()
+    mask_id = models.DecimalField(max_digits=65535, decimal_places=0, blank=True, null=True)
+    class Meta:
+        managed = False
+        db_table = 'wuser_photo'
 class Wuser(models.Model):
     id = models.BigIntegerField(primary_key=True)
     email = models.TextField(blank=True, null=True)
@@ -21,26 +35,11 @@ class Wuser(models.Model):
     last_login = models.DateTimeField(blank=True, null=True)
     time_created = models.DateTimeField(blank=True, null=True)
 
-
     class Meta:
         managed = False
         db_table = 'wuser'
 
 
-class WuserPhoto(models.Model):
-    id = models.BigIntegerField(primary_key=True)
-    wuser_id = models.DecimalField(max_digits=65535, decimal_places=0, blank=True, null=True)
-    photo_name = models.CharField(max_length=10, blank=True, null=True)
-    time_created = models.DateTimeField(blank=True, null=True)
-    is_deleted = models.NullBooleanField()
-    is_profile_photo = models.NullBooleanField()
-    time_updated = models.DateTimeField(blank=True, null=True)
-    is_enabled = models.NullBooleanField()
-    mask_id = models.DecimalField(max_digits=65535, decimal_places=0, blank=True, null=True)
-
-    class Meta:
-        managed = False
-        db_table = 'wuser_photo'
     
     
 class WuserPreference(models.Model):
