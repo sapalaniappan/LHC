@@ -6,7 +6,7 @@ from rest_framework.response import Response
 
 from django.db.models import Q
 from api.models import Wuser,WuserPreference,WuserPhoto,WuserRelations,WuserProperties,WuserChats,WuserEvents,Events
-from api.serializers import WuserSerializer,WuserPreferenceSerializer,WuserPhotoSerializer,WuserRelationsSerializer,WuserPropertiesSerializer,WuserChatsSerializer,WuserEventsSerializer,EventsSerializer
+from api.serializers import WuserSerializer,WuserPreferenceSerializer,WuserPhotoSerializer,WuserRelationsSerializer,WuserPropertiesSerializer,WuserChatsSerializer,WuserEventsSerializer,EventsSerializer,WuserDetailSerializer
 
 @api_view(['GET', 'POST'])
 def user_list(request):
@@ -85,14 +85,14 @@ def user_full_detail_by_email(request, email):
     try:
         user = Wuser.objects.get(email=email)
         user_photos = list(WuserPhoto.objects.filter(wuser_id=user.id))
-        combined=(user,user_photos)
+        #combined=(user,user_photos)
     except Wuser.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
 
     if request.method == 'GET':
-        #serializer = WuserSerializer(user)
-        data= serializers.serialize('json',combined)
-        return Response(data)
+        serializer = WuserDetailSerializer(user)
+        #data= serializers.serialize('json',combined)
+        return Response(serializer.data)
 
 #Wuser Preference
 @api_view(['GET', 'PUT', 'POST', 'DELETE'])
