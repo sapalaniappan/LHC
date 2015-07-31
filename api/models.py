@@ -29,7 +29,7 @@ class Wuser(models.Model):
 class WuserPhoto(models.Model):
     id = models.BigIntegerField(primary_key=True)
     wuser_id = models.BigIntegerField()
-    wuser = models.ForeignKey(Wuser,related_name='photos')
+    user = models.ForeignKey(Wuser,related_name='photos')
     photo_name = models.CharField(max_length=10, blank=True, null=True)
     time_created = models.DateTimeField(blank=True, null=True)
     is_deleted = models.NullBooleanField()
