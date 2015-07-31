@@ -83,7 +83,7 @@ def user_full_detail_by_email(request, email):
     Get, udpate, or delete a specific user
     """
     try:
-        user = Wuser.objects.get(email=email)
+        user = list(Wuser.objects.get(email=email))
         user_photos = list(WuserPhoto.objects.filter(wuser_id=user.id))
         combined=user+user_photos
     except Wuser.DoesNotExist:
