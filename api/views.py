@@ -433,5 +433,10 @@ class UserView(ListAPIView):
     """
     model = Wuser
     serializer_class = WuserDetailSerializer
+    queryset = Wuser.objects.get(pk=162) 
 
-
+    def list(self, request):
+        # Note the use of `get_queryset()` instead of `self.queryset`
+        queryset = self.get_queryset()
+        serializer = WuserDetailSerializer(queryset, many=True)
+        return Response(serializer.data)
