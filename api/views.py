@@ -77,6 +77,22 @@ def user_detail_by_email(request, email):
         return Response(serializer.data)
 
 
+@api_view(['GET'])
+def user_full_detail_by_email(request, email):
+    """
+    Get, udpate, or delete a specific user
+    """
+    try:
+        user = Wuser.objects.get(email=email)
+        user_photos = list(WuserPhoto.objects.filter(wuser_id=user.id))
+        combined=user+user_photos
+    except Wuser.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+
+    if request.method == 'GET':
+        #serializer = WuserSerializer(user)
+        data= serializers.serialize('json',combined)
+        return Response(data)
 
 #Wuser Preference
 @api_view(['GET', 'PUT', 'POST', 'DELETE'])
