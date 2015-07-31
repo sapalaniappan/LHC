@@ -28,16 +28,6 @@ class WuserSerializer(serializers.ModelSerializer):
     #     user.save()
     #     return user
 
-class WuserDetailSerializer(serializers.ModelSerializer):
-    photos = WuserPhotoSerializer(many=True)
-    class Meta:
-        model = Wuser
-        fields = ('id','email','password','name','display_name',
-            'current_country','current_city','gender',
-            'date_of_birth','college_country',
-            'college_name','sign_up_type',
-            'is_reported_abuse','last_login',
-            'time_created','age','photos')
 
 class WuserPreferenceSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
@@ -55,6 +45,16 @@ class WuserPhotoSerializer(serializers.HyperlinkedModelSerializer):
         fields = ('id','wuser_id','photo_name','time_created','is_deleted','is_profile_photo',
             'time_updated','is_enabled','mask_id')
 
+class WuserDetailSerializer(serializers.ModelSerializer):
+    photos = WuserPhotoSerializer(many=True)
+    class Meta:
+        model = Wuser
+        fields = ('id','email','password','name','display_name',
+            'current_country','current_city','gender',
+            'date_of_birth','college_country',
+            'college_name','sign_up_type',
+            'is_reported_abuse','last_login',
+            'time_created','age','photos')
 class WuserRelationsSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = WuserRelations
