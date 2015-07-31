@@ -1,4 +1,5 @@
 from django.conf.urls import patterns, url
+from api.views import UserView
 
 urlpatterns = patterns(
     'api.views',
@@ -13,5 +14,5 @@ urlpatterns = patterns(
     url(r'^users/relations/user/(?P<id>[0-9]+)$', 'user_relations', name='user_relations'),
     url(r'^users/events/user/(?P<id>[0-9]+)$', 'user_events', name='user_events'),
     url(r'^events/(?P<id>[0-9]+)$', 'events', name='events'),
-    url(r'^userview/(?P<id>[0-9]+)$', 'UserView.as_view()', name='user-view'),
+    url(r'^userview/(?P<id>[0-9]+)$', UserView.as_view(), name='user-view'),
 )

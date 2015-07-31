@@ -14,7 +14,6 @@ Including another URLconf
     2. Add a URL to urlpatterns:  url(r'^blog/', include(blog_urls))
 """
 from django.conf.urls import patterns, include, url
-from api.views import UserView
 from django.contrib import admin
 admin.autodiscover()
 
@@ -22,5 +21,4 @@ urlpatterns = patterns(
     '',
     url(r'^api/', include('api.urls')),
     url(r'^admin/', include(admin.site.urls)),
-    url(r'^userview/', UserView.as_view(), name='user-view'),    
 )
