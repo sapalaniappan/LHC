@@ -427,7 +427,7 @@ def events(request, id):
         return Response(status=status.HTTP_204_NO_CONTENT)
 
 
-class UserView(generics.ListAPIView):
+class UserView(ListAPIView):
     """
     Returns a list of all authors.
     """
