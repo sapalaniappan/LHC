@@ -433,10 +433,18 @@ class UserView(ListAPIView):
     """
     model = Wuser
     serializer_class = WuserDetailSerializer
-    queryset = Wuser.objects.get(pk=id) 
+    #queryset = Wuser.objects.get(pk=id)
 
-    def list(self, request, id):
+    def get_queryset(self):
+        """
+        This view should return a list of all the purchases for
+        the user as determined by the username portion of the URL.
+        """
+        id = self.kwargs['id']
+        return Wuser.objects.get(pk=id) 
+
+    def list(self, request):
         # Note the use of `get_queryset()` instead of `self.queryset`
-        queryset = self.get_queryset(id)
+        queryset = self.get_queryset()
         serializer = WuserDetailSerializer(queryset, many=False)
         return Response(serializer.data)
