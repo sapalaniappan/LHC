@@ -443,8 +443,8 @@ class UserView(ListAPIView):
         id = self.kwargs['id']
         return Wuser.objects.get(pk=id) 
 
-    def list(self, request):
+    #def list(self, request):
         # Note the use of `get_queryset()` instead of `self.queryset`
-        queryset = self.get_queryset()
-        serializer = WuserDetailSerializer(queryset, many=False)
-        return Response(serializer.data)
+        #queryset = self.get_queryset()
+        #serializer = WuserDetailSerializer(queryset, many=False)
+        #return Response(serializer.data)
