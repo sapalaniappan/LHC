@@ -469,7 +469,7 @@ class UserEmail(ListAPIView):
         #id = self.kwargs['email']
         return Wuser.objects.get(email=self.kwargs.get('email'))
 
-    def list(self, request, id):
+    def list(self, request, email):
         # Note the use of `get_queryset()` instead of `self.queryset`
         queryset = self.get_queryset()
         serializer = WuserDetailSerializer(queryset, many=False)
