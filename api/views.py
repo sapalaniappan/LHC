@@ -450,3 +450,27 @@ class UserView(ListAPIView):
         queryset = self.get_queryset()
         serializer = WuserDetailSerializer(queryset, many=False)
         return Response(serializer.data)
+
+class UserEmail(ListAPIView):
+    """
+    Returns a list of all authors.
+    """
+    model = Wuser
+    serializer_class = WuserDetailSerializer
+    #queryset = Wuser.objects.get(pk=id)
+
+    def get_queryset(self):
+        """
+        This view should return a list of all the purchases for
+        the user as determined by the username portion of the URL.
+        """
+        #queryset = super(UserView, self).get_queryset()
+        #serializer = WuserDetailSerializer(queryset, many=False)
+        #id = self.kwargs['email']
+        return Wuser.objects.get(email=self.kwargs.get('email'))
+
+    def list(self, request, id):
+        # Note the use of `get_queryset()` instead of `self.queryset`
+        queryset = self.get_queryset()
+        serializer = WuserDetailSerializer(queryset, many=False)
+        return Response(serializer.data)
