@@ -1,5 +1,5 @@
 from django.conf.urls import patterns, url
-from api.views import UserView
+from api.views import UserView,UserEmail
 
 urlpatterns = patterns(
     'api.views',
