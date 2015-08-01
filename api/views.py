@@ -440,8 +440,10 @@ class UserView(ListAPIView):
         This view should return a list of all the purchases for
         the user as determined by the username portion of the URL.
         """
-        id = self.kwargs['id']
-        return Wuser.objects.get(pk=id) 
+        queryset = super(UserView, self).get_queryset()
+        serializer = WuserDetailSerializer(queryset, many=False)
+        #id = self.kwargs['id']
+        return Wuser.objects.get(pk=self.kwargs.get('id')) 
 
     #def list(self, request):
         # Note the use of `get_queryset()` instead of `self.queryset`
