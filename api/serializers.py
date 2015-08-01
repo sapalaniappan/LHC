@@ -32,12 +32,12 @@ class WuserSerializer(serializers.ModelSerializer):
 class WuserPreferenceSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = WuserPreference
-        fields = ('id','wuser_id','pref_type','pref')
+        fields = ('id','pref_type','pref')
 
 class WuserPropertiesSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = WuserProperties
-        fields = ('id','wuser_id','prop_type','prop_value')
+        fields = ('id','prop_type','prop_value')
 
 class WuserPhotoSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
@@ -45,21 +45,10 @@ class WuserPhotoSerializer(serializers.HyperlinkedModelSerializer):
         fields = ('id','photo_name','time_created','is_deleted','is_profile_photo',
             'time_updated','is_enabled','mask_id')
 
-class WuserDetailSerializer(serializers.ModelSerializer):
-    photos = WuserPhotoSerializer(many=True)
-    class Meta:
-        model = Wuser
-        serializer_class = WuserSerializer
-        fields = ('id','email','password','name','display_name',
-            'current_country','current_city','gender',
-            'date_of_birth','college_country',
-            'college_name','sign_up_type',
-            'is_reported_abuse','last_login',
-            'time_created','age','photos')
 class WuserRelationsSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = WuserRelations
-        fields = ('id','wuser_id','counterparty','relation','is_active','time_created')
+        fields = ('id','counterparty','relation','is_active','time_created')
 
 class ChatsSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
@@ -69,7 +58,7 @@ class ChatsSerializer(serializers.HyperlinkedModelSerializer):
 class WuserChatsSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = WuserChats
-        fields = ('id','wuser_id','counterparty','chat_id','time_created','last_updated')
+        fields = ('id','counterparty','chat_id','time_created','last_updated')
 
 class EventsSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
@@ -79,6 +68,22 @@ class EventsSerializer(serializers.HyperlinkedModelSerializer):
 class WuserEventsSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = WuserEvents
-        fields = ('id','wuser_id','event_id','time_created')
+        fields = ('id','event_id','time_created')
 
 
+class WuserDetailSerializer(serializers.ModelSerializer):
+    photos = WuserPhotoSerializer(many=True)
+    events = WuserEventsSerializer(many=True)
+    properties = WuserPropertiesSerializer(many=True) 
+    chats = WuserChatsSerializer(many=True)
+    relations = WuserRelationsSerializer(many=True)
+    preferences = WuserPreferenceSerializer(many=True) 
+    class Meta:
+        model = Wuser
+        serializer_class = WuserSerializer
+        fields = ('id','email','password','name','display_name',
+            'current_country','current_city','gender',
+            'date_of_birth','college_country',
+            'college_name','sign_up_type',
+            'is_reported_abuse','last_login',
+            'time_created','age','photos','events','properties','chats','relations','preferences')

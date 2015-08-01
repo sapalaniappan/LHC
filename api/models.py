@@ -44,7 +44,8 @@ class WuserPhoto(models.Model):
     
 class WuserPreference(models.Model):
     id = models.BigIntegerField(primary_key=True)
-    wuser_id = models.DecimalField(max_digits=65535, decimal_places=0, blank=True, null=True)
+    #wuser_id = models.DecimalField(max_digits=65535, decimal_places=0, blank=True, null=True)
+    wuser = models.ForeignKey(Wuser, related_name='preferences')
     pref_type = models.CharField(max_length=10, blank=True, null=True)
     pref = models.TextField(blank=True, null=True)
 
@@ -55,7 +56,8 @@ class WuserPreference(models.Model):
 
 class WuserProperties(models.Model):
     id = models.BigIntegerField(primary_key=True)
-    wuser_id = models.DecimalField(max_digits=65535, decimal_places=0, blank=True, null=True)
+    #wuser_id = models.DecimalField(max_digits=65535, decimal_places=0, blank=True, null=True)
+    wuser = models.ForeignKey(Wuser, related_name='properties')
     prop_type = models.CharField(max_length=10, blank=True, null=True)
     prop_value = models.TextField(blank=True, null=True)
 
@@ -65,7 +67,8 @@ class WuserProperties(models.Model):
 
 class WuserRelations(models.Model):
     id = models.BigIntegerField(primary_key=True)
-    wuser_id = models.DecimalField(max_digits=65535, decimal_places=0, blank=True, null=True)
+    #wuser_id = models.DecimalField(max_digits=65535, decimal_places=0, blank=True, null=True)
+    wuser = models.ForeignKey(Wuser, related_name='relations')
     counterparty = models.DecimalField(max_digits=65535, decimal_places=0, blank=True, null=True)
     relation = models.DecimalField(max_digits=65535, decimal_places=0, blank=True, null=True)
     is_active = models.NullBooleanField()
@@ -87,7 +90,8 @@ class Chats(models.Model):
 
 class WuserChats(models.Model):
     id = models.BigIntegerField(primary_key=True)
-    wuser_id = models.DecimalField(max_digits=65535, decimal_places=0, blank=True, null=True)
+    #wuser_id = models.DecimalField(max_digits=65535, decimal_places=0, blank=True, null=True)
+    wuser = models.ForeignKey(Wuser, related_name='chats')
     counterparty = models.DecimalField(max_digits=65535, decimal_places=0, blank=True, null=True)
     chat_id = models.DecimalField(max_digits=65535, decimal_places=0, blank=True, null=True)
     time_created = models.DateTimeField(blank=True, null=True)
@@ -117,7 +121,8 @@ class Events(models.Model):
 
 class WuserEvents(models.Model):
     id = models.BigIntegerField(primary_key=True)
-    wuser_id = models.DecimalField(max_digits=65535, decimal_places=0, blank=True, null=True)
+    #wuser_id = models.DecimalField(max_digits=65535, decimal_places=0, blank=True, null=True)
+    wuser = models.ForeignKey(Wuser, related_name='events')
     event_id = models.DecimalField(max_digits=65535, decimal_places=0, blank=True, null=True)
     time_created = models.DateTimeField(blank=True, null=True)
     
