@@ -6,7 +6,7 @@ from rest_framework.response import Response
 
 from django.db.models import Q
 from api.models import Wuser,WuserPreference,WuserPhoto,WuserRelations,WuserProperties,WuserChats,WuserEvents,Events
-from api.serializers import WuserSerializer,WuserPreferenceSerializer,WuserPhotoSerializer,WuserRelationsSerializer,WuserPropertiesSerializer,WuserChatsSerializer,WuserEventsSerializer,EventsSerializer,WuserDetailSerializer
+from api.serializers import WuserPhotoUpdateSerializer,WuserSerializer,WuserPreferenceSerializer,WuserPhotoSerializer,WuserRelationsSerializer,WuserPropertiesSerializer,WuserChatsSerializer,WuserEventsSerializer,EventsSerializer,WuserDetailSerializer
 
 from rest_framework.generics import ListAPIView
 from itertools import chain
@@ -193,7 +193,7 @@ def user_photos(request, id):
         cursor.execute("SELECT nextval('wuser_photo_id_seq')")
         row = cursor.fetchone()
         data['id']=row[0]
-        serializer = WuserPhotoSerializer(data=data)
+        serializer = WuserPhotoUpdateSerializer(data=data)
         if serializer.is_valid():
             serializer.save() 
             return Response(serializer.data, status=status.HTTP_201_CREATED)
@@ -207,11 +207,11 @@ def user_photos(request, id):
         return Response(status=status.HTTP_404_NOT_FOUND)
 
     if request.method == 'GET':
-        serializer = WuserPhotoSerializer(user_photos,many=True)
+        serializer = WuserPhotoUpdateSerializer(user_photos,many=True)
         return Response(serializer.data)
 
     elif request.method == 'PUT':
-        serializer = WuserPhotoSerializer(user_photos, data=request.DATA)
+        serializer = WuserPhotoUpdateSerializer(user_photos, data=request.DATA)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)
