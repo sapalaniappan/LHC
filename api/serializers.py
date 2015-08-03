@@ -48,7 +48,7 @@ class WuserPhotoSerializer(serializers.HyperlinkedModelSerializer):
 class WuserPhotoUpdateSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = WuserPhoto
-        fields = ('id','wuser_id','photo_name','time_created','is_deleted','is_profile_photo',
+        fields = ('id','wuser','photo_name','time_created','is_deleted','is_profile_photo',
             'time_updated','is_enabled','mask_id')
 
 class WuserRelationsSerializer(serializers.HyperlinkedModelSerializer):
