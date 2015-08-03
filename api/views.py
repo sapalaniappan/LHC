@@ -202,7 +202,7 @@ def user_photos(request, id):
                 serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     try:
-        user_photos = WuserPhoto.objects.filter(wuser=id)
+        user_photos = WuserPhoto.objects.filter(wuser_id=id)
     except WuserPhoto.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
 
