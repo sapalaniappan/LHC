@@ -8,7 +8,7 @@ from django.db.models import Q
 from api.models import Wuser,WuserPreference,WuserPhoto,WuserRelations,WuserProperties,WuserChats,WuserEvents,Events
 from api.serializers import WuserPhotoUpdateSerializer,WuserSerializer,WuserPreferenceSerializer,WuserPhotoSerializer,WuserRelationsSerializer,WuserPropertiesSerializer,WuserChatsSerializer,WuserEventsSerializer,EventsSerializer,WuserDetailSerializer
 
-from rest_framework.generics import ListAPIView
+from rest_framework.generics import ListAPIView,ListCreateAPIView
 from itertools import chain
 
 #class ResultsList(ListAPIView):
@@ -480,7 +480,7 @@ class UserEmail(ListAPIView):
         serializer = WuserDetailSerializer(queryset, many=False)
         return Response(serializer.data)
 
-class ArticleList(generics.ListCreateAPIView):
+class ArticleList(ListCreateAPIView):
     queryset = WuserPhoto.objects.all()
     serializer_class = WuserPhotoUpdateSerializer
 
