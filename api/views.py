@@ -479,3 +479,10 @@ class UserEmail(ListAPIView):
         queryset = self.get_queryset()
         serializer = WuserDetailSerializer(queryset, many=False)
         return Response(serializer.data)
+
+class ArticleList(generics.ListCreateAPIView):
+    queryset = WuserPhoto.objects.all()
+    serializer_class = WuserPhotoUpdateSerializer
+
+    def perform_create(self, serializer):
+        serializer.save(wuser=self.request.wuser)
