@@ -193,7 +193,7 @@ def user_photos(request, id):
         cursor.execute("SELECT nextval('wuser_photo_id_seq')")
         row = cursor.fetchone()
         data['id']=row[0]
-        serializer = WuserPhotoUpdateSerializer(data=data)
+        serializer = WuserPhotoSerializer(data=data)
         if serializer.is_valid():
             serializer.save() 
             return Response(serializer.data, status=status.HTTP_201_CREATED)
