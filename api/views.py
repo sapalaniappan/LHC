@@ -193,7 +193,7 @@ def user_photos(request, id):
         cursor.execute("SELECT nextval('wuser_photo_id_seq')")
         row = cursor.fetchone()
         data['id']=row[0]
-        wuser=Wuser.objects.filter(pk=id)
+        wuser=Wuser.objects.get(id=id)
         data['wuser']=wuser
         serializer = WuserPhotoUpdateSerializer(data=data)
         if serializer.is_valid():
