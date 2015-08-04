@@ -207,7 +207,8 @@ def user_photos(request, id):
         return Response(status=status.HTTP_404_NOT_FOUND)
 
     if request.method == 'GET':
-        serializer = WuserPhotoUpdateSerializer(user_photos,many=True)
+        context = dict(request=request)
+        serializer = WuserPhotoUpdateSerializer(user_photos,many=True,context=context)
         return Response(serializer.data)
 
     elif request.method == 'PUT':
