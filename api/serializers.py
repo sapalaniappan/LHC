@@ -48,7 +48,7 @@ class WuserPhotoSerializer(serializers.HyperlinkedModelSerializer):
 class WuserPhotoUpdateSerializer(serializers.HyperlinkedModelSerializer):
     wuser = serializers.HyperlinkedRelatedField(
         view_name='wuser-detail',
-        lookup_field='wuser_id',
+        lookup_field='id',
         read_only=True
     )
     class Meta:
