@@ -1,5 +1,5 @@
 from django.conf.urls import patterns, url
-from api.views import UserView,UserEmail
+from api.views import UserView,UserEmail,ArticleList
 
 urlpatterns = patterns(
     'api.views',
@@ -16,5 +16,5 @@ urlpatterns = patterns(
     url(r'^events/(?P<id>[0-9]+)$', 'events', name='events'),
     url(r'^user/(?P<id>[0-9]+)$', UserView.as_view(), name='user-view'),
     url(r'^user/email/(?P<email>[\w.%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4})$', UserEmail.as_view(), name='user-email'),
-    url(r'^photos/$', views.ArticleList.as_view(),name='article-list'),
+    url(r'^photos/$', ArticleList.as_view(),name='article-list'),
 )
