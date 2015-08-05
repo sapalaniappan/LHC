@@ -69,6 +69,17 @@ class WuserPreference(models.Model):
         managed = False
         db_table = 'wuser_preference'
 
+class WuserPreferenceUpdate(models.Model):
+    id = models.BigIntegerField(primary_key=True)
+    wuser_id = models.BigIntegerField()
+    #wuser = models.ForeignKey(Wuser, related_name='preferences')
+    pref_type = models.CharField(max_length=10, blank=True, null=True)
+    pref = models.TextField(blank=True, null=True)
+    
+    class Meta:
+        managed = False
+        db_table = 'wuser_preference'
+
 
 class WuserProperties(models.Model):
     id = models.BigIntegerField(primary_key=True)
@@ -81,6 +92,18 @@ class WuserProperties(models.Model):
         managed = False
         db_table = 'wuser_properties'
 
+class WuserPropertiesUpdate(models.Model):
+    id = models.BigIntegerField(primary_key=True)
+    #wuser_id = models.DecimalField(max_digits=65535, decimal_places=0, blank=True, null=True)
+    wuser_id = models.BigIntegerField()
+    prop_type = models.CharField(max_length=10, blank=True, null=True)
+    prop_value = models.TextField(blank=True, null=True)
+    
+    class Meta:
+        managed = False
+        db_table = 'wuser_properties'
+
+
 class WuserRelations(models.Model):
     id = models.BigIntegerField(primary_key=True)
     #wuser_id = models.DecimalField(max_digits=65535, decimal_places=0, blank=True, null=True)
@@ -90,6 +113,19 @@ class WuserRelations(models.Model):
     is_active = models.NullBooleanField()
     time_created = models.DateTimeField(blank=True, null=True)
 
+    class Meta:
+        managed = False
+        db_table = 'wuser_relations'
+
+class WuserRelationsUpdate(models.Model):
+    id = models.BigIntegerField(primary_key=True)
+    #wuser_id = models.DecimalField(max_digits=65535, decimal_places=0, blank=True, null=True)
+    wuser_id = models.BigIntegerField()
+    counterparty = models.DecimalField(max_digits=65535, decimal_places=0, blank=True, null=True)
+    relation = models.DecimalField(max_digits=65535, decimal_places=0, blank=True, null=True)
+    is_active = models.NullBooleanField()
+    time_created = models.DateTimeField(blank=True, null=True)
+    
     class Meta:
         managed = False
         db_table = 'wuser_relations'
@@ -117,6 +153,19 @@ class WuserChats(models.Model):
         managed = False
         db_table = 'wuser_chats'
 
+class WuserChatsUpdate(models.Model):
+    id = models.BigIntegerField(primary_key=True)
+    #wuser_id = models.DecimalField(max_digits=65535, decimal_places=0, blank=True, null=True)
+    wuser_id = models.BigIntegerField()
+    counterparty = models.DecimalField(max_digits=65535, decimal_places=0, blank=True, null=True)
+    chat_id = models.DecimalField(max_digits=65535, decimal_places=0, blank=True, null=True)
+    time_created = models.DateTimeField(blank=True, null=True)
+    last_updated = models.DateTimeField(blank=True, null=True)
+    
+    class Meta:
+        managed = False
+        db_table = 'wuser_chats'
+
 class Events(models.Model):
     id = models.BigIntegerField(primary_key=True)
     name = models.CharField(max_length=20, blank=True, null=True)
@@ -139,6 +188,17 @@ class WuserEvents(models.Model):
     id = models.BigIntegerField(primary_key=True)
     #wuser_id = models.DecimalField(max_digits=65535, decimal_places=0, blank=True, null=True)
     wuser = models.ForeignKey(Wuser, related_name='events')
+    event_id = models.DecimalField(max_digits=65535, decimal_places=0, blank=True, null=True)
+    time_created = models.DateTimeField(blank=True, null=True)
+    
+    class Meta:
+        managed = False
+        db_table = 'wuser_events'
+
+class WuserEventsUpdate(models.Model):
+    id = models.BigIntegerField(primary_key=True)
+    #wuser_id = models.DecimalField(max_digits=65535, decimal_places=0, blank=True, null=True)
+    wuser_id = models.BigIntegerField()
     event_id = models.DecimalField(max_digits=65535, decimal_places=0, blank=True, null=True)
     time_created = models.DateTimeField(blank=True, null=True)
     

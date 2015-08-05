@@ -6,7 +6,7 @@ from rest_framework.response import Response
 
 from django.db.models import Q
 from api.models import Wuser,WuserPreference,WuserPhoto,WuserRelations,WuserProperties,WuserChats,WuserEvents,Events
-from api.serializers import WuserPhotoUpdateSerializer,WuserSerializer,WuserPreferenceSerializer,WuserPhotoSerializer,WuserRelationsSerializer,WuserPropertiesSerializer,WuserChatsSerializer,WuserEventsSerializer,EventsSerializer,WuserDetailSerializer
+from api.serializers import WuserPhotoUpdateSerializer,WuserSerializer,WuserPreferenceSerializer,WuserPhotoSerializer,WuserRelationsSerializer,WuserPropertiesSerializer,WuserChatsSerializer,WuserEventsSerializer,EventsSerializer,WuserDetailSerializer,WuserPreferenceUpdateSerializer,WuserRelationsUpdateSerializer,WuserEventsUpdateSerializer,WuserPropertiesUpdateSerializer,WuserChatsUpdateSerializer
 
 from rest_framework.generics import ListAPIView,ListCreateAPIView
 from itertools import chain
@@ -140,7 +140,7 @@ def user_preferences(request, id):
         cursor.execute("SELECT nextval('wuser_preference_id_seq')")
         row = cursor.fetchone()
         data['id']=row[0]
-        serializer = WuserPreferenceSerializer(data=data)
+        serializer = WuserPreferenceUpdateSerializer(data=data)
         if serializer.is_valid():
             serializer.save() 
             return Response(serializer.data, status=status.HTTP_201_CREATED)
@@ -193,10 +193,6 @@ def user_photos(request, id):
         cursor.execute("SELECT nextval('wuser_photo_id_seq')")
         row = cursor.fetchone()
         data['id']=row[0]
-        wuser=Wuser.objects.get(id=id)
-        #data['wuser']=wus
-        print "Hello"
-        print id
         serializer = WuserPhotoUpdateSerializer(data=data)
         if serializer.is_valid():
             serializer.save() 
@@ -240,7 +236,7 @@ def user_properties(request, userid):
         cursor.execute("SELECT nextval('wuser_properties_id_seq')")
         row = cursor.fetchone()
         data['id']=row[0]
-        serializer = WuserPropertiesSerializer(data=data)
+        serializer = WuserPropertiesUpdateSerializer(data=data)
         if serializer.is_valid():
             serializer.save() 
             return Response(serializer.data, status=status.HTTP_201_CREATED)
@@ -279,7 +275,7 @@ def user_chats(request, id):
         cursor.execute("SELECT nextval('wuser_chats_id_seq')")
         row = cursor.fetchone()
         data['id']=row[0]
-        serializer = WuserChatsSerializer(data=data)
+        serializer = WuserChatsUpdateSerializer(data=data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
@@ -318,7 +314,7 @@ def user_relations(request, id):
         cursor.execute("SELECT nextval('wuser_relations_id_seq')")
         row = cursor.fetchone()
         data['id']=row[0]
-        serializer = WuserRelationsSerializer(data=data)
+        serializer = WuserRelationsUpdateSerializer(data=data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
@@ -360,7 +356,7 @@ def user_events(request, id):
         cursor.execute("SELECT nextval('wuser_events_id_seq')")
         row = cursor.fetchone()
         data['id']=row[0]
-        serializer = WuserEventsSerializer(data=data)
+        serializer = WuserEventsUpdateSerializer(data=data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)

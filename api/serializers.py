@@ -1,4 +1,4 @@
-from models import WuserPhotoUpdate,Wuser,WuserPreference,WuserPhoto,WuserRelations,WuserProperties,Chats,WuserChats,Events,WuserEvents
+from models import WuserPhotoUpdate,Wuser,WuserPreference,WuserPhoto,WuserRelations,WuserProperties,Chats,WuserChats,Events,WuserEvents,WuserPreferenceUpdate,WuserRelationsUpdate,WuserPropertiesUpdate,WuserChatsUpdate,WuserEventsUpdate
 from rest_framework import serializers
 
 
@@ -46,21 +46,20 @@ class WuserPhotoSerializer(serializers.HyperlinkedModelSerializer):
             'time_updated','is_enabled','mask_id')
 
 class WuserPhotoUpdateSerializer(serializers.HyperlinkedModelSerializer):
-    #wuser = serializers.ReadOnlyField(source='wuser.id')
-    #wuser = serializers.PrimaryKeyRelatedField()
-    #print "Hello1"
-    #print wuser
     class Meta:
         model = WuserPhotoUpdate
         fields = ('id','wuser_id','photo_name','time_created','is_deleted','is_profile_photo',
             'time_updated','is_enabled','mask_id')
 
-
-
 class WuserRelationsSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = WuserRelations
         fields = ('id','counterparty','relation','is_active','time_created')
+
+class WuserRelationsUpdateSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = WuserRelationsUpdate
+        fields = ('id','wuser_id','counterparty','relation','is_active','time_created')
 
 class ChatsSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
@@ -72,6 +71,11 @@ class WuserChatsSerializer(serializers.HyperlinkedModelSerializer):
         model = WuserChats
         fields = ('id','counterparty','chat_id','time_created','last_updated')
 
+class WuserChatsUpdateSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = WuserChatsUpdate
+        fields = ('id','wuser_id','counterparty','chat_id','time_created','last_updated')
+
 class EventsSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Events
@@ -81,6 +85,11 @@ class WuserEventsSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = WuserEvents
         fields = ('id','event_id','time_created')
+
+class WuserEventsUpdateSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = WuserEventsUpdate
+        fields = ('id','wuser_id','event_id','time_created')
 
 
 class WuserDetailSerializer(serializers.ModelSerializer):
