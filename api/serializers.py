@@ -46,10 +46,10 @@ class WuserPhotoSerializer(serializers.HyperlinkedModelSerializer):
             'time_updated','is_enabled','mask_id')
 
 class WuserPhotoUpdateSerializer(serializers.HyperlinkedModelSerializer):
-    wuser = serializers.ReadOnlyField(source='wuser.id')
+    #wuser = serializers.ReadOnlyField(source='wuser.id')
     #wuser = serializers.PrimaryKeyRelatedField()
-    print "Hello1"
-    print wuser
+    #print "Hello1"
+    #print wuser
     class Meta:
         model = WuserPhotoUpdate
         fields = ('id','wuser_id','photo_name','time_created','is_deleted','is_profile_photo',
