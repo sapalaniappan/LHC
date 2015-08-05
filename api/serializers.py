@@ -34,6 +34,11 @@ class WuserPreferenceSerializer(serializers.HyperlinkedModelSerializer):
         model = WuserPreference
         fields = ('id','pref_type','pref')
 
+class WuserPreferenceUpdateSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = WuserPreferenceUpdate
+        fields = ('id','wuser_id','pref_type','pref')
+
 class WuserPropertiesSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = WuserProperties
