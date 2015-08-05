@@ -98,3 +98,5 @@ class WuserDetailSerializer(serializers.ModelSerializer):
             'college_name','sign_up_type',
             'is_reported_abuse','last_login',
             'time_created','age','photos','events','properties','chats','relations','preferences')
+
+
