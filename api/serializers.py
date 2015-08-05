@@ -44,6 +44,11 @@ class WuserPropertiesSerializer(serializers.HyperlinkedModelSerializer):
         model = WuserProperties
         fields = ('id','prop_type','prop_value')
 
+class WuserPropertiesUpdateSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = WuserPropertiesUpdate
+        fields = ('id','prop_type','prop_value')
+
 class WuserPhotoSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = WuserPhoto
