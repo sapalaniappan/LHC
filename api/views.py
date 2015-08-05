@@ -194,10 +194,10 @@ def user_photos(request, id):
         row = cursor.fetchone()
         data['id']=row[0]
         wuser=Wuser.objects.get(id=id)
-        data['wuser']=id
+        #data['wuser']=wus
         print "Hello"
         print id
-        serializer = WuserPhotoUpdateSerializer(wuser=wuser,data=data)
+        serializer = WuserPhotoUpdateSerializer(data=data)
         if serializer.is_valid():
             serializer.save() 
             return Response(serializer.data, status=status.HTTP_201_CREATED)
