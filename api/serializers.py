@@ -1,4 +1,4 @@
-from models import Wuser,WuserPreference,WuserPhoto,WuserRelations,WuserProperties,Chats,WuserChats,Events,WuserEvents
+from models import WuserPhotoUpdate,Wuser,WuserPreference,WuserPhoto,WuserRelations,WuserProperties,Chats,WuserChats,Events,WuserEvents
 from rest_framework import serializers
 
 
@@ -51,8 +51,8 @@ class WuserPhotoUpdateSerializer(serializers.HyperlinkedModelSerializer):
     print "Hello1"
     print wuser
     class Meta:
-        model = WuserPhoto
-        fields = ('id','wuser','photo_name','time_created','is_deleted','is_profile_photo',
+        model = WuserPhotoUpdate
+        fields = ('id','wuser_id','photo_name','time_created','is_deleted','is_profile_photo',
             'time_updated','is_enabled','mask_id')
 
 
