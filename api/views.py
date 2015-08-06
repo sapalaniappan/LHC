@@ -418,7 +418,7 @@ def user_events(request, id):
 
 
 @api_view(['GET', 'PUT', 'POST' , 'DELETE'])
-def events(request, id):
+def events_by_id(request, id):
     """
     Get, udpate, or delete a specific  user_event
     """
