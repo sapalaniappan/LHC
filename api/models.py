@@ -172,7 +172,7 @@ class Events(models.Model):
     description = models.CharField(max_length=255, blank=True, null=True)
     creator_id = models.DecimalField(max_digits=65535, decimal_places=0, blank=True, null=True)
     venue = models.CharField(max_length=60, blank=True, null=True)
-    event_date = models.DateTimeField(blank=True, null=True)
+    event_date = models.CharField(max_length=20, blank=True, null=True)
     time_created = models.DateTimeField(blank=True, null=True)
     last_updated = models.DateTimeField(blank=True, null=True)
     city = models.CharField(max_length=30, blank=True, null=True)
