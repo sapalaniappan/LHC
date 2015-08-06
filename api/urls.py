@@ -13,6 +13,7 @@ urlpatterns = patterns(
     url(r'^users/properties/user/(?P<userid>[0-9]+)$', 'user_properties', name='user_properties'),
     url(r'^users/relations/user/(?P<id>[0-9]+)$', 'user_relations', name='user_relations'),
     url(r'^users/events/user/(?P<id>[0-9]+)$', 'user_events', name='user_events'),
+    url(r'^users/events/$', 'events', name='events'),
     url(r'^events/(?P<id>[0-9]+)$', 'events', name='events'),
     url(r'^user/(?P<id>[0-9]+)$', UserView.as_view(), name='user-view'),
     url(r'^user/email/(?P<email>[\w.%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4})$', UserEmail.as_view(), name='user-email'),

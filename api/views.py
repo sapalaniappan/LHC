@@ -345,6 +345,37 @@ def user_relations(request, id):
 
 
 @api_view(['GET', 'PUT', 'POST' , 'DELETE'])
+def events(request):
+    """
+    Get, udpate, or delete a specific  event
+    """
+    if request.method == 'POST':
+        data=request.DATA
+        from django.db import connection
+        cursor = connection.cursor()
+        cursor.execute("SELECT nextval('events_id_seq')")
+        row = cursor.fetchone()
+        data['id']=row[0]
+        serializer = EventsSerializer(data=data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        else:
+            return Response(
+                serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    try:
+        events = Events.objects.all()
+    except Events.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+
+    if request.method == 'GET':
+        serializer = EventsSerializer(events)
+        return Response(serializer.data)
+
+
+
+
+@api_view(['GET', 'PUT', 'POST' , 'DELETE'])
 def user_events(request, id):
     """
     Get, udpate, or delete a specific  user_event
