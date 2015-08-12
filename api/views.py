@@ -491,6 +491,13 @@ class UserEmail(ListAPIView):
 class ArticleList(ListCreateAPIView):
     queryset = WuserPhoto.objects.all()
     serializer_class = WuserPhotoUpdateSerializer
+    
+    import zeropush
 
+    # Get a user. Can also be a custom user model in django 1.5+
+    the_user = Wuser.objects.filter(user = Wuser.objects.get(pk=162))
+    the_user['token']='56bb10f4e01ee153ebef459b9dbdbde5dd39f4f8455d3e9515fb63942bf52580'
+    zeropush.notify_user(the_user, alert="Here's some notification text", sound="default", badge_number=1)
+   
     def perform_create(self, serializer):
         serializer.save(wuser=self.request.wuser)
