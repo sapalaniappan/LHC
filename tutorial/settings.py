@@ -22,6 +22,8 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'w9y%kksk$x#)=3iqac_%%zimk4ov@jj9f9-tq2rs!&yt&u-d-('
 
+ZEROPUSH_AUTH_TOKEN = 'dev_zgUpbD4RgV1ywvBm3BsY'
+
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
@@ -39,6 +41,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'rest_framework',
     'api',
+    'zeropush',
 )
 
 MIDDLEWARE_CLASSES = (
