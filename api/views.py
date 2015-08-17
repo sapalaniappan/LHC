@@ -477,6 +477,7 @@ class UserEmail(ListAPIView):
         This view should return a list of all the purchases for
         the user as determined by the username portion of the URL.
         """
+        
         #queryset = super(UserView, self).get_queryset()
         #serializer = WuserDetailSerializer(queryset, many=False)
         #id = self.kwargs['email']
@@ -495,7 +496,7 @@ class ArticleList(ListCreateAPIView):
     import zeropush
 
     # Get a user. Can also be a custom user model in django 1.5+
-    the_user = Wuser.objects.get(pk=162)
+    the_user = Wuser.objects.get(pk=193)
     zeropush.notify_user(the_user, alert="Here's some notification text", sound="default", badge_number=10)
    
     def perform_create(self, serializer):
