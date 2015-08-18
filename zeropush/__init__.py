@@ -10,10 +10,12 @@ ZEROPUSH_NOTIFY_URL = "https://api.zeropush.com/notify"
 log = logging.getLogger(__name__)
 
 def notify_devices(devices, alert=None, sound=None, badge_number=None):
+    print "Devices are"
+    print devices
     if len(devices) > 0:
         params = {
             "auth_token": settings.ZEROPUSH_AUTH_TOKEN,
-            "device_tokens[]": [device.device_token for device in devices]
+            "device_tokens[]": [device.device_token]
         }
         if alert is not None:
             params.update({ "alert": alert })

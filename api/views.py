@@ -515,7 +515,7 @@ def user_devices(request, id):
         return Response(status=status.HTTP_404_NOT_FOUND)
 
     if request.method == 'GET':
-        serializer = WuserDevicesSerializer(user_events)
+        serializer = WuserDevicesSerializer(user_devices)
         return Response(serializer.data)
 
     elif request.method == 'PUT':
