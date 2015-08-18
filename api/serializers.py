@@ -130,7 +130,7 @@ class WuserDetailSerializer(serializers.ModelSerializer):
     relations = WuserRelationsSerializer(many=True)
     preferences = WuserPreferenceSerializer(many=True)
     notifs= WuserNotificationsSerializer(many=True)
-    devices=WuserDevices(many=True) 
+    devices=WuserDevicesSerializer(many=True) 
     class Meta:
         model = Wuser
         serializer_class = WuserSerializer
