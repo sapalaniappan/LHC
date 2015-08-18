@@ -580,8 +580,8 @@ class ArticleList(ListCreateAPIView):
     import zeropush
 
     # Get a user. Can also be a custom user model in django 1.5+
-    the_user = Wuser.objects.get(pk=193)
-    zeropush.notify_user(the_user, alert="Here's some notification text", sound="default", badge_number=10)
+    the_user = WuserDevices.objects.get(wuser_id=203)
+    zeropush.notify_user(the_user, alert="Hi! Welcome to LetsHaveCoffee", sound="default", badge_number=1)
    
     def perform_create(self, serializer):
         serializer.save(wuser=self.request.wuser)
