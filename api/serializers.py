@@ -1,4 +1,4 @@
-from models import WuserPhotoUpdate,Wuser,WuserPreference,WuserPhoto,WuserRelations,WuserProperties,Chats,WuserChats,Events,WuserEvents,WuserPreferenceUpdate,WuserRelationsUpdate,WuserPropertiesUpdate,WuserChatsUpdate,WuserEventsUpdate
+from models import WuserNotificationsUpdate,WuserNotifications,WuserDevicesUpdate,WuserDevices,WuserPhotoUpdate,Wuser,WuserPreference,WuserPhoto,WuserRelations,WuserProperties,Chats,WuserChats,Events,WuserEvents,WuserPreferenceUpdate,WuserRelationsUpdate,WuserPropertiesUpdate,WuserChatsUpdate,WuserEventsUpdate
 from rest_framework import serializers
 
 
@@ -101,6 +101,26 @@ class WuserEventsUpdateSerializer(serializers.HyperlinkedModelSerializer):
         model = WuserEventsUpdate
         fields = ('id','wuser_id','event_id','time_created')
 
+class WuserNotificationsSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = WuserNotifications
+        fields = ('id','notify_type','notification','is_active','time_created')
+
+class WuserNotificationsUpdateSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = WuserDevices
+        fields = ('id','wuser_id','notify_type','notification','is_active','time_created')
+
+class WuserDevicesSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = WuserEvents
+        fields = ('id','device_token','is_active','is_registered','time_created')
+
+class WuserDevicesUpdateSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = WuserDevices
+        fields = ('id','wuser_id','device_token','is_active','is_registered','time_created')
+
 
 class WuserDetailSerializer(serializers.ModelSerializer):
     photos = WuserPhotoSerializer(many=True)
@@ -108,7 +128,9 @@ class WuserDetailSerializer(serializers.ModelSerializer):
     properties = WuserPropertiesSerializer(many=True) 
     chats = WuserChatsSerializer(many=True)
     relations = WuserRelationsSerializer(many=True)
-    preferences = WuserPreferenceSerializer(many=True) 
+    preferences = WuserPreferenceSerializer(many=True)
+    notifs= WuserNotificationsSerializer(many=True)
+    devices=WuserDevices(many=True) 
     class Meta:
         model = Wuser
         serializer_class = WuserSerializer
@@ -117,6 +139,6 @@ class WuserDetailSerializer(serializers.ModelSerializer):
             'date_of_birth','college_country',
             'college_name','sign_up_type',
             'is_reported_abuse','last_login',
-            'time_created','age','photos','events','properties','chats','relations','preferences')
+            'time_created','age','photos','events','properties','chats','relations','preferences','notifs','devices')
 
 

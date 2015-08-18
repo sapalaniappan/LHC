@@ -5,8 +5,8 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 
 from django.db.models import Q
-from api.models import Wuser,WuserPreference,WuserPhoto,WuserRelations,WuserProperties,WuserChats,WuserEvents,Events
-from api.serializers import WuserPhotoUpdateSerializer,WuserSerializer,WuserPreferenceSerializer,WuserPhotoSerializer,WuserRelationsSerializer,WuserPropertiesSerializer,WuserChatsSerializer,WuserEventsSerializer,EventsSerializer,WuserDetailSerializer,WuserPreferenceUpdateSerializer,WuserRelationsUpdateSerializer,WuserEventsUpdateSerializer,WuserPropertiesUpdateSerializer,WuserChatsUpdateSerializer
+from api.models import Wuser,WuserPreference,WuserPhoto,WuserRelations,WuserProperties,WuserChats,WuserEvents,Events,WuserNotifications,WuserDevices
+from api.serializers import WuserNotificationsSerializer,WuserNotificationsUpdateSerializer,WuserDevicesSerializer,WuserDevicesUpdateSerializer,WuserPhotoUpdateSerializer,WuserSerializer,WuserPreferenceSerializer,WuserPhotoSerializer,WuserRelationsSerializer,WuserPropertiesSerializer,WuserChatsSerializer,WuserEventsSerializer,EventsSerializer,WuserDetailSerializer,WuserPreferenceUpdateSerializer,WuserRelationsUpdateSerializer,WuserEventsUpdateSerializer,WuserPropertiesUpdateSerializer,WuserChatsUpdateSerializer
 
 from rest_framework.generics import ListAPIView,ListCreateAPIView
 from itertools import chain
@@ -488,6 +488,90 @@ class UserEmail(ListAPIView):
         queryset = self.get_queryset()
         serializer = WuserDetailSerializer(queryset, many=False)
         return Response(serializer.data)
+
+
+@api_view(['GET', 'PUT', 'POST' , 'DELETE'])
+def user_devices(request, id):
+    """
+    Get, udpate, or delete a specific  user devices
+    """
+    if request.method == 'POST':
+        data=request.DATA
+        from django.db import connection
+        cursor = connection.cursor()
+        cursor.execute("SELECT nextval('wuser_devices_id_seq')")
+        row = cursor.fetchone()
+        data['id']=row[0]
+        serializer = WuserDevicesUpdateSerializer(data=data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        else:
+            return Response(
+                serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    try:
+        user_devices = WuserDevices.objects.get(wuser_id=id)
+    except WuserDevices.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+
+    if request.method == 'GET':
+        serializer = WuserDevicesSerializer(user_events)
+        return Response(serializer.data)
+
+    elif request.method == 'PUT':
+        serializer = WuserDevicesSerializer(data=request.DATA)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        else:
+            return Response(
+                serilizer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    elif request.method == 'DELETE':
+        user.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
+
+@api_view(['GET', 'PUT', 'POST' , 'DELETE'])
+def user_notifications(request, id):
+    """
+    Get, udpate, or delete a specific  user notification
+    """
+    if request.method == 'POST':
+        data=request.DATA
+        from django.db import connection
+        cursor = connection.cursor()
+        cursor.execute("SELECT nextval('wuser_notifications_id_seq')")
+        row = cursor.fetchone()
+        data['id']=row[0]
+        serializer = WuserNotificationsUpdateSerializer(data=data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        else:
+            return Response(
+                serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    try:
+        user_notifs = WuserNotifications.objects.get(wuser_id=id)
+    except WuserNotifications.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+
+    if request.method == 'GET':
+        serializer = WuserNotificationsSerializer(user_events)
+        return Response(serializer.data)
+
+    elif request.method == 'PUT':
+        serializer = WuserNotificationsSerializer(data=request.DATA)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        else:
+            return Response(
+                serilizer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    elif request.method == 'DELETE':
+        user.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
 
 class ArticleList(ListCreateAPIView):
     queryset = WuserPhoto.objects.all()

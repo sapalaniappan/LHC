@@ -195,6 +195,30 @@ class WuserEvents(models.Model):
         managed = False
         db_table = 'wuser_events'
 
+class WuserNotifications(models.Model):
+    id = models.BigIntegerField(primary_key=True)
+    #wuser_id = models.DecimalField(max_digits=65535, decimal_places=0, blank=True, null=True)
+    wuser = models.ForeignKey(Wuser, related_name='notifs')
+    notify_type=models.CharField(max_length=20, blank=True, null=True)
+    notification=models.CharField(max_length=255, blank=True, null=True)
+    time_created = models.DateTimeField(blank=True, null=True)
+    is_active = models.NullBooleanField()
+    class Meta:
+        managed = False
+        db_table = 'wuser_notifications'
+
+class WuserNotificationsUpdate(models.Model):
+    id = models.BigIntegerField(primary_key=True)
+    wuser_id = models.BigIntegerField()
+    #wuser = models.ForeignKey(Wuser, related_name='notifs')
+    notify_type=models.CharField(max_length=20, blank=True, null=True)
+    notification=models.CharField(max_length=255, blank=True, null=True)
+    time_created = models.DateTimeField(blank=True, null=True)
+    is_active = models.NullBooleanField()
+    class Meta:
+        managed = False
+        db_table = 'wuser_notifications'
+
 class WuserEventsUpdate(models.Model):
     id = models.BigIntegerField(primary_key=True)
     #wuser_id = models.DecimalField(max_digits=65535, decimal_places=0, blank=True, null=True)
@@ -205,4 +229,30 @@ class WuserEventsUpdate(models.Model):
     class Meta:
         managed = False
         db_table = 'wuser_events'
+
+
+class WuserDevicesUpdate(models.Model):
+    id = models.BigIntegerField(primary_key=True)
+    wuser_id = models.BigIntegerField()
+    #wuser = models.ForeignKey(Wuser, related_name='notifs')
+    device_token=models.CharField(max_length=255, blank=True, null=True)
+    time_created = models.DateTimeField(blank=True, null=True)
+    is_active = models.NullBooleanField()
+    is_registered = models.NullBooleanField()
+    class Meta:
+        managed = False
+        db_table = 'wuser_devices'
+
+
+class WuserDevices(models.Model):
+    id = models.BigIntegerField(primary_key=True)
+    #wuser_id = models.DecimalField(max_digits=65535, decimal_places=0, blank=True, null=True)
+    wuser = models.ForeignKey(Wuser, related_name='devices')
+    device_token=models.CharField(max_length=255, blank=True, null=True)
+    time_created = models.DateTimeField(blank=True, null=True)
+    is_active = models.NullBooleanField()
+    is_registered = models.NullBooleanField()
+    class Meta:
+        managed = False
+        db_table = 'wuser_devices'
 
