@@ -4,6 +4,16 @@ from rest_framework import status
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 
+import logging
+import requests
+
+from django.conf import settings
+#from models import PushDevice
+
+ZEROPUSH_NOTIFY_URL = "https://api.zeropush.com/notify"
+
+ZEROPUSH_REGISTER_URL = "https://api.zeropush.com/register"
+
 from django.db.models import Q
 from api.models import Wuser,WuserPreference,WuserPhoto,WuserRelations,WuserProperties,WuserChats,WuserEvents,Events,WuserNotifications,WuserDevices
 from api.serializers import WuserNotificationsSerializer,WuserNotificationsUpdateSerializer,WuserDevicesSerializer,WuserDevicesUpdateSerializer,WuserPhotoUpdateSerializer,WuserSerializer,WuserPreferenceSerializer,WuserPhotoSerializer,WuserRelationsSerializer,WuserPropertiesSerializer,WuserChatsSerializer,WuserEventsSerializer,EventsSerializer,WuserDetailSerializer,WuserPreferenceUpdateSerializer,WuserRelationsUpdateSerializer,WuserEventsUpdateSerializer,WuserPropertiesUpdateSerializer,WuserChatsUpdateSerializer
@@ -505,6 +515,18 @@ def user_devices(request, id):
         serializer = WuserDevicesUpdateSerializer(data=data)
         if serializer.is_valid():
             serializer.save()
+            params = {
+                "auth_token": settings.ZEROPUSH_AUTH_TOKEN,
+                "device_token": data['device_token']
+            }
+            response = requests.post(ZEROPUSH_REGISTER_URL, params)
+            if response.ok:
+                #log.info("Push successfully sent to zeropush")
+                print 'Push successfully sent to zeropush'
+            else:
+                print 'Push Failed'+response.text
+                #log.error("Error! Push failed to be sent to zeropush! Error response: %s" % response.text)
+     
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         else:
             return Response(
