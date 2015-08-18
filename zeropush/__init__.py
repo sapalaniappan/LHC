@@ -7,7 +7,6 @@ from django.conf import settings
 
 ZEROPUSH_NOTIFY_URL = "https://api.zeropush.com/notify"
 
-ZEROPUSH_NOTIFY_URL = "https://api.zeropush.com/register"
 
 log = logging.getLogger(__name__)
 
