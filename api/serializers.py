@@ -108,17 +108,17 @@ class WuserNotificationsSerializer(serializers.HyperlinkedModelSerializer):
 
 class WuserNotificationsUpdateSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
-        model = WuserDevices
+        model = WuserNotificationsUpdate
         fields = ('id','wuser_id','notify_type','notification','is_active','time_created')
 
 class WuserDevicesSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
-        model = WuserEvents
+        model = WuserDevices
         fields = ('id','device_token','is_active','is_registered','time_created')
 
 class WuserDevicesUpdateSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
-        model = WuserDevices
+        model = WuserDevicesUpdate
         fields = ('id','wuser_id','device_token','is_active','is_registered','time_created')
 
 
