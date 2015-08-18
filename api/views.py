@@ -567,6 +567,11 @@ def user_notifications(request, id):
         row = cursor.fetchone()
         data['id']=row[0]
         serializer = WuserNotificationsUpdateSerializer(data=data)
+        import zeropush
+
+        # Get a user. Can also be a custom user model in django 1.5+
+        the_user = WuserDevices.objects.get(wuser_id=id)
+        zeropush.notify_user(the_user, alert=data['notification'], sound="default", badge_number=1)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
