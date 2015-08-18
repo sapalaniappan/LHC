@@ -15,7 +15,7 @@ def notify_devices(devices, alert=None, sound=None, badge_number=None):
     if len(devices) > 0:
         params = {
             "auth_token": settings.ZEROPUSH_AUTH_TOKEN,
-            "device_tokens[]": [device.device_token]
+            "device_tokens[]": devices
         }
         if alert is not None:
             params.update({ "alert": alert })
@@ -37,5 +37,6 @@ def notify_devices(devices, alert=None, sound=None, badge_number=None):
     return False
 
 def notify_user(user, alert=None, sound=None, badge_number=None):
-    #a=['56bb10f4e01ee153ebef459b9dbdbde5dd39f4f8455d3e9515fb63942bf52580']
-    return notify_devices(user, alert=alert, sound=sound, badge_number=badge_number)
+    a=[]
+    a.append(user.device_token)
+    return notify_devices(a, alert=alert, sound=sound, badge_number=badge_number)
