@@ -584,7 +584,8 @@ def user_notifications(request, id):
         return Response(status=status.HTTP_404_NOT_FOUND)
 
     if request.method == 'GET':
-        serializer = WuserNotificationsSerializer(user_notifs,many=True)
+        context = dict(request=request)
+        serializer = WuserNotificationsSerializer(user_notifs,many=True,context)
         return Response(serializer.data)
 
     elif request.method == 'PUT':
