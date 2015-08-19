@@ -585,7 +585,7 @@ def user_notifications(request, id):
 
     if request.method == 'GET':
         context = dict(request=request)
-        serializer = WuserNotificationsSerializer(user_notifs,many=True,context=context)
+        serializer = WuserNotificationsUpdateSerializer(user_notifs,many=True,context=context)
         return Response(serializer.data)
 
     elif request.method == 'PUT':
