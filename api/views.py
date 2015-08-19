@@ -579,12 +579,12 @@ def user_notifications(request, id):
             return Response(
                 serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     try:
-        user_notifs = WuserNotifications.objects.get(wuser_id=id)
+        user_notifs = WuserNotifications.objects.get(wuser_id=id,many=True)
     except WuserNotifications.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
 
     if request.method == 'GET':
-        serializer = WuserNotificationsSerializer(user_events,many=True)
+        serializer = WuserNotificationsSerializer(user_notifss,many=True)
         return Response(serializer.data)
 
     elif request.method == 'PUT':
