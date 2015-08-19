@@ -427,12 +427,13 @@ def users_by_event_id(request, id):
             return Response(
                 serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     try:
-        event_users = WuserEvents.objects.get(event_id=id)
+        event_users = WuserEvents.objects.filter(event_id=id)
     except WuserEvents.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
 
     if request.method == 'GET':
-        serializer = WuserEventsSerializer(event_users)
+        context = dict(request=request) 
+        serializer = WuserEventsUpdateSerializer(event_users,many=True,context=context)
         return Response(serializer.data)
 
     elif request.method == 'PUT':
